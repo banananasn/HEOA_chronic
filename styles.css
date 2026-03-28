@@ -1,7 +1,7 @@
 /* ========== 插入入户页面全屏背景图 ========== */
 body {
     /* 设置背景图 - 将"入户背景图.jpg"替换为你的实际文件名 */
-    background-image: url('images/入户背景图.jpg');
+    background-image: url('images/入户背景图.png');
     /* 背景图铺满整个页面 */
     background-size: cover;
     /* 背景图居中显示 */
