@@ -122,12 +122,6 @@ footer {
     padding: 0 12px;
 }
 
-/* 调整 main 的背景为透明，让背景图透出来 */
-main {
-    background: transparent;
-    padding: 20px;
-}
-
 /* header 和 footer 保持半透明（可选，如果想让背景图透过来） */
 header {
     background-color: rgba(51, 51, 51, 0.85);
