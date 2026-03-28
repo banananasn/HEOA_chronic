@@ -35,10 +35,10 @@ main {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 70px;
+    gap: 90px;
     padding: 20px;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 500 auto;
 }
 
 /* 单个卡片样式 */
