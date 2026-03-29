@@ -237,45 +237,50 @@ main {
     /* 手机端使用专门的竖屏背景图 */
     body {
         background-image: url('images/入户背景图-手机.png');
-        background-attachment: scroll;
-        background-position: top center;
-        height: auto;
-        overflow-y: auto;
-        align-items: flex-start;
+        background-attachment: fixed;      /* 改为 fixed，背景固定不滚动 */
+        background-position: center center;
+        height: 100vh;                      /* 固定高度，禁止滚动 */
+        overflow: hidden;                   /* 禁止页面滚动 */
+        align-items: center;                /* 垂直居中 */
     }
 
-    /* 卡片容器：竖向排列 */
+    /* 卡片容器：竖向排列，整体靠右 */
     .cards-container {
         flex-direction: column;
-        gap: 25px;
-        margin-top: 80px;
+        gap: 20px;
+        margin: 0;                          /* 移除上边距 */
+        padding: 20px;
+        align-items: flex-end;              /* 卡片容器内的卡片靠右对齐 */
     }
 
     /* 卡片大小 */
     .card {
-        width: 200px;
-        height: 200px;
+        width: 130px;
+        height: 100px;
     }
 
     .card h3 {
-        font-size: 1.3rem;
+        font-size: 1rem;                   /* 稍微缩小，适应小卡片 */
+        margin-bottom: 6px;
     }
 
     .card p {
-        font-size: 0.8rem;
-    }
-
-    /* 底部文字：改为相对定位，跟随内容滚动 */
-    .home-footer {
-        position: relative;
-        bottom: auto;
-        margin-top: 40px;
-        margin-bottom: 30px;
         font-size: 0.7rem;
     }
 
+    /* 底部文字：固定在底部，不随内容滚动 */
+    .home-footer {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        margin: 0;
+        font-size: 0.6rem;
+        text-align: center;
+    }
+
     .home-footer p {
-        margin: 3px 0;
+        margin: 2px 0;
     }
 
     /* 底部链接颜色保持不变 */
