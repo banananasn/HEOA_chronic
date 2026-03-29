@@ -231,48 +231,54 @@ main {
 }
 
 /* ========== 移动端适配（手机/平板） ========== */
-/* 平板设备（宽度小于 1024px） */
-@media (max-width: 1024px) {
-    .cards-container {
-        gap: 40px;  /* 减小卡片间距 */
-    }
-    .card {
-        width: 160px;
-        height: 160px;  /* 卡片稍微缩小 */
-    }
-    .card h3 {
-        font-size: 1.2rem;  /* 标题缩小 */
-    }
-    .card p {
-        font-size: 0.75rem;  /* 描述文字缩小 */
-    }
-}
-
-/* 手机设备（宽度小于 768px） */
+/* ========== 手机适配（宽度小于 768px） ========== */
 @media (max-width: 768px) {
-    /* 让卡片竖向排列（一列） */
+    /* 手机端使用专门的竖屏背景图 */
+    body {
+        background-image: url('images/入户背景图-手机.png');
+        background-attachment: scroll;
+        background-position: top center;
+        height: auto;
+        overflow-y: auto;
+        align-items: flex-start;
+    }
+
+    /* 卡片容器：竖向排列 */
     .cards-container {
         flex-direction: column;
         gap: 25px;
-        margin-top: 80px;  /* 调整垂直位置 */
+        margin-top: 80px;
     }
+
+    /* 卡片大小 */
     .card {
         width: 200px;
-        height: 200px;  /* 手机上卡片稍大一点，方便点击 */
+        height: 200px;
     }
+
     .card h3 {
         font-size: 1.3rem;
     }
+
     .card p {
         font-size: 0.8rem;
     }
-    
-    /* 底部文字调整 */
+
+    /* 底部文字：改为相对定位，跟随内容滚动 */
     .home-footer {
-        bottom: 15px;
+        position: relative;
+        bottom: auto;
+        margin-top: 40px;
+        margin-bottom: 30px;
         font-size: 0.7rem;
     }
+
     .home-footer p {
         margin: 3px 0;
+    }
+
+    /* 底部链接颜色保持不变 */
+    .home-footer a {
+        color: black;
     }
 }
