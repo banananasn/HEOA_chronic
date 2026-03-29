@@ -299,21 +299,30 @@ body.sub-page {
     min-height: 100vh;
     background-attachment: scroll;
 }
-/* ========== 版头样式 ========== */
-header {
-    background-color: rgba(51, 51, 51, 0.85);
+
+/* ========== 版头样式（在导航栏上方） ========== */
+.sub-header {
+    background: linear-gradient(135deg, rgba(51, 51, 51, 0.95), rgba(34, 34, 34, 0.95));
     color: white;
-    padding: 1rem;
+    padding: 1.5rem 1rem;
     text-align: center;
-    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-header h1 {
+.sub-header h1 {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 
-/* ========== 导航栏样式 ========== */
+.sub-header-subtitle {
+    margin: 8px 0 0 0;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+/* ========== 导航栏样式（保留原有好看的样式，调整为粘性定位） ========== */
 .sub-nav {
     position: sticky;
     top: 0;
@@ -325,6 +334,54 @@ header h1 {
     z-index: 1000;
     padding: 12px 0;
 }
+
+.sub-nav-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.sub-nav-item {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.sub-nav-item:hover {
+    background: #f0f0f0;
+    color: #8B0000;
+}
+
+.sub-nav-item.active {
+    background: #8B0000;
+    color: white;
+}
+
+/* ========== 内容区域 ========== */
+.sub-page-content {
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 0;
+    max-width: 100%;
+    padding: 40px 20px;
+    box-shadow: none;
+    flex: 1;
+}
+
+.sub-page-content h2,
+.sub-page-content ul,
+.sub-page-content div {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* ========== 页脚样式 ========== */
 footer {
     text-align: center;
