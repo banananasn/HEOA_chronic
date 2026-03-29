@@ -295,7 +295,7 @@ main {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100%;          /* 全覆盖宽度 */
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -332,21 +332,29 @@ main {
     color: white;
 }
 
-/* 子页面主要内容区域 */
+/* 子页面主要内容区域（全覆盖） */
 .sub-page-content {
-    margin-top: 80px;
+    margin-top: 80px;     /* 避开固定导航栏 */
     background: rgba(255, 255, 255, 0.92);
-    border-radius: 24px;
+    border-radius: 0;      /* 改为直角，更有全覆盖感 */
+    max-width: 100%;       /* 改为100%，真正全覆盖 */
+    padding: 40px 20px;
+    box-shadow: none;
+    min-height: calc(100vh - 130px); /* 撑满屏幕高度 */
+}
+
+/* 内容区域内部的容器（限制阅读宽度） */
+.sub-page-content h2,
+.sub-page-content ul,
+.sub-page-content div {
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
-    padding: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.sub-page-content h2 {
-    color: #1e466e;
-    border-bottom: 3px solid #1e466e;
-    padding-bottom: 10px;
-    margin-bottom: 25px;
+/* 页脚全覆盖 */
+footer {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
 }
