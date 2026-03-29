@@ -13,9 +13,6 @@ body {
     background-attachment: fixed;
     background-repeat: no-repeat;
     
-    /* 手机端允许滚动，桌面端一屏 */
-    min-height: 100vh;
-    
     /* 使用 flex 布局 */
     display: flex;
     align-items: center;
@@ -277,8 +274,5 @@ main {
     }
     .home-footer p {
         margin: 3px 0;
-    }
-}
-        bottom: 10px;
     }
 }
