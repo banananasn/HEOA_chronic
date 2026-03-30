@@ -7,6 +7,7 @@
 
 body {
     font-family: Arial, sans-serif;
+    background-color: #fcf5eb;  /*背景底色*/
     background-image: url('images/入户背景图.png');
     background-size: cover;
     background-position: center center;
