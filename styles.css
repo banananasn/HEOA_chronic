@@ -49,7 +49,7 @@ main {
 /* 单个卡片样式 */
 .card {
     width: 12vw;
-    height: 12vw;
+    height: 10vw;
     min-width: 120px;   /* 最小宽度，防止过小 */
     max-width: 180px;   /* 最大宽度，防止过大 */
     background: #ffffff;
