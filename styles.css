@@ -1,57 +1,434 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>研究动态 - 整合式智慧慢病管理模式研究</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body class="sub-page">
+/* ========== 全屏背景图 ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    <!-- 版头（在导航栏上方） -->
-    <header class="sub-header">
-        <h1>整合式智慧慢病管理模式研究</h1>
-        <p class="sub-header-subtitle">国家科技重大专项课题</p>
-    </header>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fcf5eb;  /*背景底色*/
+    background-image: url('images/入户背景图.png');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    
+    /* 使用 flex 布局 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    <!-- 固定导航栏 -->
-    <nav class="sub-nav">
-        <div class="sub-nav-container">
-            <a href="index.html" class="sub-nav-item">首页</a>
-            <a href="trends.html" class="sub-nav-item active">研究动态</a>
-            <a href="results.html" class="sub-nav-item">研究成果</a>
-            <a href="plan.html" class="sub-nav-item">研究计划</a>
-            <a href="teams.html" class="sub-nav-item">参与单位与人员</a>
-        </div>
-    </nav>
+     /* 添加动画：背景图从上到下飞入 */
+    animation: bgFlyIn 1s ease-out forwards;
+}
+/* 定义背景图飞入动画 */
+@keyframes bgFlyIn {
+    0% {
+        background-position: center -100vh;  /* 从顶部外开始 */
+        opacity: 0;
+    }
+    100% {
+        background-position: center center;  /* 到达正常位置 */
+        opacity: 1;
+    }
+}
 
-    <!-- 页面主要内容：左右两个板块 -->
-    <main class="sub-page-content">
-        <div class="two-columns">
-            <!-- 左侧：会议资讯 -->
-            <div class="dynamic-section">
-                <h2>会议资讯</h2>
-                <ul id="news-links">
-                    <!-- 会议资讯的链接将通过 JavaScript 动态加载 -->
-                </ul>
-            </div>
+/* ========== 子页面样式 ========== */
+body.sub-page {
+    /* 子页面：允许滚动 */
+    animation: none;
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* 覆盖首页的居中布局，改为从上到下排列 */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    /* 背景随内容滚动 */
+    background-attachment: fixed;
+}
 
-            <!-- 右侧：调研访谈 -->
-            <div class="dynamic-section">
-                <h2>调研访谈</h2>
-                <ul id="interview-links">
-                    <!-- 调研访谈的链接将通过 JavaScript 动态加载 -->
-                    <li class="empty-tip">暂无内容，敬请期待</li>
-                </ul>
-            </div>
-        </div>
-    </main>
 
-    <!-- 页脚 -->
-    <footer>
-        <p>&copy;国家科技重大专项“重大慢病防治技术推广机制研究及应用示范”课题“整合式智慧慢病管理模式研究”（编号：2024ZD0523902）@四川大学华西公共卫生学院</p>
-    </footer>
+/* 桌面端（宽度大于 768px）时禁止滚动 */
+@media (min-width: 769px) {
+    body {
+        height: 100vh;
+        overflow: hidden;
+    }
+}
 
-    <script src="scripts.js"></script>
-</body>
-</html>
+main {
+    background: transparent;
+    width: 100%;
+}
+
+/* 卡片容器 - 横向排列 */
+.cards-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5vw;
+    padding: 20px;
+    max-width: 90%;
+    margin: 0 auto;
+    margin-top: 50vh;  /* 上边距为视口高度的%，自动适配 */
+}
+
+/* 单个卡片样式 */
+.card {
+    width: 12vw;
+    height: 10vw;
+    min-width: 120px;   /* 最小宽度，防止过小 */
+    max-width: 180px;   /* 最大宽度，防止过大 */
+    background: #ffffff;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e0e0e0;
+}
+
+.card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.25);
+}
+
+.card h3 {
+    font-size: 1.2vw;
+    font-weight: bold;
+    color: #8B0000;
+    min-font-size: 14px;
+    margin-bottom: 0.5rem;
+}
+
+.card p {
+    font-size: 0.8vw;
+    color: #666;
+    line-height: 1.4;
+    padding: 0 12px;
+    min-font-size: 10px;
+}
+
+
+/* ========== 内容页面样式 ========== */
+
+/* 返回首页的导航链接 */
+.page-nav {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.page-nav a {
+    color: white;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+}
+
+.page-nav a:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* 内容页面的 main 区域 */
+.content-page {
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 24px;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.content-page h2 {
+    color: #1e466e;
+    border-bottom: 3px solid #1e466e;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+}
+
+/* 研究动态列表样式 */
+#news-links li {
+    margin: 15px 0;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#news-links li:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+#news-links a {
+    text-decoration: none;
+    color: #1e466e;
+    font-size: 1rem;
+    font-weight: 500;
+    display: block;
+}
+
+#news-links a:hover {
+    color: #0077b6;
+}
+
+/* 研究成果列表样式 */
+#documents p {
+    margin: 15px 0;
+    padding: 12px 15px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#documents p:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+#documents a {
+    text-decoration: none;
+    color: #1e466e;
+    font-size: 1rem;
+    font-weight: 500;
+    display: block;
+}
+
+#documents a:hover {
+    color: #0077b6;
+}
+
+/* 图片容器样式 */
+.content-page .image-container {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.content-page .image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ========== 主页底部文字样式 ========== */
+
+/* 调整 main 的布局，让内容从上到下排列 */
+main {
+    background: transparent;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* 底部文字容器 */
+/* 底部文字容器 */
+.home-footer {
+    text-align: center;
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    color: black;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-shadow: none;
+    z-index: 10;
+}
+.home-footer p {
+    margin: 5px 0;
+    letter-spacing: 1px;
+}
+/* 覆盖超链接默认颜色*/
+.home-footer a {
+    color: black;           /* 设置链接颜色为白色 */
+    text-decoration: none;  /* 去掉下划线 */
+    transition: opacity 0.3s ease;
+}
+/* 鼠标悬停效果 */
+.home-footer a:hover {
+    opacity: 0.8;
+    text-decoration: underline;  /* 悬停时显示下划线 */
+}
+
+/* ========== 移动端适配（手机/平板） ========== */
+/* ========== 手机适配（宽度小于 768px） ========== */
+@media (max-width: 768px) {
+    /* 手机端使用专门的竖屏背景图 */
+    body {
+        background-image: url('images/入户背景图-手机.png');
+        background-attachment: fixed;      /* 改为 fixed，背景固定不滚动 */
+        background-position: center center;
+        height: 100vh;                      /* 固定高度，禁止滚动 */
+        overflow: hidden;                   /* 禁止页面滚动 */
+        align-items: center;                /* 垂直居中 */
+        justify-content: flex-end;  /* 水平靠右 */
+    }
+
+    /* 卡片容器：竖向排列，整体靠右 */
+    .cards-container {
+        flex-direction: column;
+        gap: 4vh;                    /* 间距为视口高度的4%，自动适配 */
+        margin: 0;                          /* 移除上边距 */
+        padding: 5vw;                /* 左右内边距为视口宽度的5% */
+        align-items: flex-end;              /* 卡片容器内的卡片靠右对齐 */
+    }
+
+   .card {
+        width: 32vw;                /* 宽度为视口宽度的32% */
+        height: 25vw;               /* 高度为宽度的78%左右（保持矩形） */
+        min-width: 110px;           /* 最小宽度，防止过小 */
+        max-width: 160px;           /* 最大宽度，防止过大 */
+        min-height: 85px;
+        max-height: 125px;
+    }
+
+    .card h3 {
+        font-size: clamp(0.9rem, 4vw, 1.2rem);  /* 动态字体：最小0.9rem，最大1.2rem */
+        margin-bottom: 0.5vh;                   /* 下边距为视口高度的0.5% */;
+    }
+
+    .card p {
+        font-size: clamp(0.65rem, 2.5vw, 0.8rem); /* 动态字体 */
+        padding: 0 8px;
+    }
+
+    /* 底部文字：固定在底部，不随内容滚动 */
+    .home-footer {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        right: 0;
+        margin: 0;
+        font-size: 0.6rem;
+        text-align: center;
+    }
+
+    .home-footer p {
+        margin: 2px 0;
+    }
+
+    /* 底部链接颜色保持不变 */
+    .home-footer a {
+        color: black;
+    }
+}
+
+
+/* ========== 子页面专用 body 样式 ========== */
+body.sub-page {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    min-height: 100vh;
+    background-attachment: scroll;
+}
+
+/* ========== 版头样式（在导航栏上方） ========== */
+.sub-header {
+    background: linear-gradient(135deg, rgb(128,0,0), rgb(128,0,0));
+    color: white;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.sub-header h1 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.sub-header-subtitle {
+    margin: 8px 0 0 0;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+/* ========== 导航栏样式（保留原有好看的样式，调整为粘性定位） ========== */
+.sub-nav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 12px 0;
+}
+
+.sub-nav-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.sub-nav-item {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.sub-nav-item:hover {
+    background: #f0f0f0;
+    color: #8B0000;
+}
+
+.sub-nav-item.active {
+    background: #8B0000;
+    color: white;
+}
+
+/* ========== 内容区域 ========== */
+.sub-page-content {
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 0;
+    max-width: 100%;
+    padding: 40px 20px;
+    box-shadow: none;
+    flex: 1;
+}
+
+.sub-page-content h2,
+.sub-page-content ul,
+.sub-page-content div {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ========== 页脚样式 ========== */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: rgb(128,0,0);
+    color: white;
+    width: 100%;
+    margin-top: auto;
+}
