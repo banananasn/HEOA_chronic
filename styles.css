@@ -210,7 +210,7 @@ main {
 .two-columns {
     display: flex;
     flex-wrap: wrap;
-    gap: 10vw;
+    gap: 15vw;
     justify-content: space-between;
 }
 /* 每个板块占一半宽度 */
@@ -221,11 +221,11 @@ main {
 /* 板块标题样式 */
 .dynamic-section h2 {
     color: black;
-    border-bottom: 0.2vw solid #1e466e;
+    border-bottom: 0.2vw solid black;
     padding-bottom: 2vh;  /* 下边距为视口高度的% */
     margin-bottom: 3vh;   /* 标题与内容间距为视口高度的% */
-    font-size: clamp(1.2rem, 2.5vw, 1.8rem);  /* 动态字体 */
-    font-weight: 600;
+    font-size: clamp(1.1rem, 2.3vw, 1.6rem);  /* 动态字体 */
+    font-weight: 500;
 }
 /* 列表样式 */
 #news-links,
@@ -239,7 +239,7 @@ main {
 #interview-links li {
     margin: 1.5vh 0;             /* 条目上下间距为视口高度的1.5% */
     padding: 1.2vh 1.5vw;        /* 内边距：上下用vh，左右用vw */
-    background: #f8f9fa;
+    background: black;
     border-radius: 1.2vw;        /* 圆角为视口宽度的1.2% */
     transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -247,7 +247,7 @@ main {
 #news-links a,
 #interview-links a {
     text-decoration: none;
-    color: #1e466e;
+    color: black;
     font-size: clamp(0.85rem, 1.2vw, 1rem);  /* 动态字体：最小0.85rem，最大1rem */
     font-weight: 500;
     display: block;
@@ -261,7 +261,7 @@ main {
 /* 链接悬浮颜色 */
 #news-links a:hover,
 #interview-links a:hover {
-    color: #0077b6;
+        color: black;
 }
 /* 暂无内容提示样式 */
 .empty-tip {
