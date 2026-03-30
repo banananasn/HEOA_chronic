@@ -251,25 +251,29 @@ main {
     /* 卡片容器：竖向排列，整体靠右 */
     .cards-container {
         flex-direction: column;
-        gap: 20px;
+        gap: 4vh;                    /* 间距为视口高度的4%，自动适配 */
         margin: 0;                          /* 移除上边距 */
-        padding: 50px;
+        padding: 5vw;                /* 左右内边距为视口宽度的5% */
         align-items: flex-end;              /* 卡片容器内的卡片靠右对齐 */
     }
 
-    /* 卡片大小 */
-    .card {
-        width: 130px;
-        height: 100px;
+   .card {
+        width: 32vw;                /* 宽度为视口宽度的32% */
+        height: 25vw;               /* 高度为宽度的78%左右（保持矩形） */
+        min-width: 110px;           /* 最小宽度，防止过小 */
+        max-width: 160px;           /* 最大宽度，防止过大 */
+        min-height: 85px;
+        max-height: 125px;
     }
 
     .card h3 {
-        font-size: 1rem;                   /* 稍微缩小，适应小卡片 */
-        margin-bottom: 6px;
+        font-size: clamp(0.9rem, 4vw, 1.2rem);  /* 动态字体：最小0.9rem，最大1.2rem */
+        margin-bottom: 0.5vh;                   /* 下边距为视口高度的0.5% */;
     }
 
     .card p {
-        font-size: 0.7rem;
+        font-size: clamp(0.65rem, 2.5vw, 0.8rem); /* 动态字体 */
+        padding: 0 8px;
     }
 
     /* 底部文字：固定在底部，不随内容滚动 */
