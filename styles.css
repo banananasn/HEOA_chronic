@@ -37,6 +37,7 @@ body {
 /* ========== 子页面样式 ========== */
 body.sub-page {
     /* 子页面：允许滚动 */
+    animation: none;
     height: auto;
     min-height: 100vh;
     overflow-y: auto;
