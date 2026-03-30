@@ -47,7 +47,7 @@ body.sub-page {
     align-items: stretch;
     justify-content: flex-start;
     /* 背景随内容滚动 */
-    background-attachment: scroll;
+    background-attachment: fixed;
 }
 
 
