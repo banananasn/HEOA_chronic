@@ -16,6 +16,13 @@ newsLinks.forEach(link => {
     newsList.appendChild(li);
 });
 
+// ========== 调研访谈链接列表 ==========
+const interviewLinks = [
+    // 在这里添加调研访谈的内容，格式如下：
+    // { title: "2026年3月 某某专家访谈", url: "https://example.com/interview1" },
+    // { title: "2026年2月 基层医疗机构调研", url: "https://example.com/interview2" }
+];
+
 // 示例：研究成果的文档列表
 const documents = [
     { title: "研究成果-论文1：《柳叶刀-西太平洋》期刊发表中国版门急诊服务敏感疾病目录", url: "https://mp.weixin.qq.com/s/-RhQ7OUv2TKwkpLKOrL3fA" },
