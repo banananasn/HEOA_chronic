@@ -463,6 +463,8 @@ body.sub-page {
     margin-top: 0;               /* 确保没有上边距 */
     box-shadow: none;
     flex: 0 0 auto;              /* 不拉伸，保持内容高度 */
+    max-height: 80vh;            /* 限制最大高度为视口的70% */
+    overflow-y: auto;            /* 内容超出时滚动 */
 }
 
 .sub-page-content h2,
