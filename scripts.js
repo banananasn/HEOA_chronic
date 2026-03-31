@@ -1,18 +1,39 @@
-// 示例：研究动态的链接列表
-const newsLinks = [
-    { title: "2025年9月26日 国家科技重大专项课题“整合式智慧慢病管理模式研究”启动会顺利举行", url: "https://mp.weixin.qq.com/s/zj19z1DcZdE7bgmVevohcA" },
-    { title: "2026年1月29日 国家科技重大专项课题“整合式智慧慢病管理模式研究”年度研讨会顺利举行", url: "https://mp.weixin.qq.com/s/RPzWc1Bv88lnvJsBbUJ32Q" },
+// 会议资讯数据（包含标题、链接和图片地址）
+const newsCardsData = [
+    { 
+        title: "2025年9月26日 国家科技重大专项课题“整合式智慧慢病管理模式研究”启动会顺利举行", 
+        url: "https://mp.weixin.qq.com/s/zj19z1DcZdE7bgmVevohcA",
+        image: "images/news1.jpg"  // 请替换为实际图片路径
+    },
+    { 
+        title: "2026年1月29日 国家科技重大专项课题“整合式智慧慢病管理模式研究”年度研讨会顺利举行", 
+        url: "https://mp.weixin.qq.com/s/RPzWc1Bv88lnvJsBbUJ32Q",
+        image: "images/news2.jpg"  // 请替换为实际图片路径
+    }
 ];
-// 动态填充研究动态链接
-const newsList = document.getElementById("news-links");
-newsLinks.forEach(link => {
-    const li = document.createElement("li");
-    const a = document.createElement("a");
-    a.href = link.url;
-    a.textContent = link.title;
-    li.appendChild(a);
-    newsList.appendChild(li);
-});
+// 动态生成会议资讯卡片
+function loadNewsCards() {
+    const container = document.getElementById('news-cards');
+    if (!container) return;
+    
+    newsCardsData.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'news-card';
+        card.onclick = () => window.location.href = item.url;
+        
+        card.innerHTML = `
+            <div class="card-image">
+                <img src="${item.image}" alt="${item.title}">
+            </div>
+            <div class="card-title">${item.title}</div>
+        `;
+        container.appendChild(card);
+    });
+}
+// 页面加载时调用
+if (document.getElementById('news-cards')) {
+    loadNewsCards();
+}
 
 // ========== 调研访谈链接列表 ==========
 const interviewLinks = [
