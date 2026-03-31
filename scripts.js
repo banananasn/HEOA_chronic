@@ -3,12 +3,12 @@ const newsCardsData = [
     { 
         title: "2025年9月26日 国家科技重大专项课题“整合式智慧慢病管理模式研究”启动会顺利举行", 
         url: "https://mp.weixin.qq.com/s/zj19z1DcZdE7bgmVevohcA",
-        image: "images/news1.jpg"  // 请替换为实际图片路径
+        image: "images/250926启动会.jpg" 
     },
     { 
         title: "2026年1月29日 国家科技重大专项课题“整合式智慧慢病管理模式研究”年度研讨会顺利举行", 
         url: "https://mp.weixin.qq.com/s/RPzWc1Bv88lnvJsBbUJ32Q",
-        image: "images/news2.jpg"  // 请替换为实际图片路径
+        image: "images/260129研讨会.jpg" 
     }
 ];
 // 动态生成会议资讯卡片
