@@ -18,9 +18,17 @@ const interviewLinks = [
 ];
 
 // ========== 研究成果文档列表 ==========
-const documents = [
-    { title: "研究成果-论文1：《柳叶刀-西太平洋》期刊发表中国版门急诊服务敏感疾病目录", url: "https://mp.weixin.qq.com/s/-RhQ7OUv2TKwkpLKOrL3fA" },
-    { title: "研究成果-论文2：《四川大学学报（医学版）》期刊发表四川省德阳市罗江区医防融合创新实践分析", url: "https://mp.weixin.qq.com/s/umA2DdQ79LStldjVmP3-cg" }
+const resultsCardsData = [
+    { 
+        title: "《柳叶刀-西太平洋》期刊发表中国版门急诊服务敏感疾病目录", 
+        url: "https://mp.weixin.qq.com/s/-RhQ7OUv2TKwkpLKOrL3fA",
+        image: "images/王健健-lancet西太平洋.png"  
+    },
+    { 
+        title: "《四川大学学报（医学版）》发表四川省德阳市罗江区医防融合创新实践分析", 
+        url: "https://mp.weixin.qq.com/s/umA2DdQ79LStldjVmP3-cg",
+        image: "images/陈玺玥-川大学报.png" 
+    }
 ];
 
 // ========== 动态生成会议资讯卡片 ==========
@@ -63,32 +71,36 @@ function loadInterviewLinks() {
     }
 }
 
-// ========== 动态填充研究成果 ==========
-function loadDocuments() {
-    const documentSection = document.getElementById("documents");
-    if (!documentSection) return;
+// ========== 动态生成研究成果卡片 ==========
+function loadResultsCards() {
+    const container = document.getElementById('results-cards');
+    if (!container) return;
     
-    documents.forEach(doc => {
-        const p = document.createElement("p");
-        const a = document.createElement("a");
-        a.href = doc.url;
-        a.textContent = doc.title;
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-        p.appendChild(a);
-        documentSection.appendChild(p);
+    resultsCardsData.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'results-card';  // 可单独定义样式
+        card.onclick = () => window.location.href = item.url;
+        
+        card.innerHTML = `
+            <div class="card-image">
+                <img src="${item.image}" alt="${item.title}">
+            </div>
+            <div class="card-title">${item.title}</div>
+        `;
+        container.appendChild(card);
     });
 }
+
 
 // ========== 页面加载时执行 ==========
 if (document.getElementById('news-cards')) {
     loadNewsCards();
 }
 
-if (document.getElementById("interview-links")) {
-    loadInterviewLinks();
+if (document.getElementById('results-cards')) {
+    loadResultsCards();
 }
 
-if (document.getElementById("documents")) {
-    loadDocuments();
+if (document.getElementById("interview-links")) {
+    loadInterviewLinks();
 }
