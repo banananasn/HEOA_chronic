@@ -240,62 +240,6 @@ main {
     text-decoration: underline;  /* 悬停时显示下划线 */
 }
 
-/* ========== 移动端适配（手机/平板） ========== */
-/* ========== 手机适配（宽度小于 768px） ========== */
-@media (max-width: 768px) {
-    /* 手机端使用专门的竖屏背景图 */
-    body {
-        background-image: url('images/入户背景图-手机.png');
-        background-attachment: fixed;      /* 改为 fixed，背景固定不滚动 */
-        background-position: center center;
-        height: 100vh;                      /* 固定高度，禁止滚动 */
-        overflow: hidden;                   /* 禁止页面滚动 */
-        align-items: center;                /* 垂直居中 */
-        justify-content: flex-end;  /* 水平靠右 */
-    }
-    /* 卡片容器：竖向排列，整体靠右 */
-    .cards-container {
-        flex-direction: column;
-        gap: 4vh;                    /* 间距为视口高度的4%，自动适配 */
-        margin: 0;                          /* 移除上边距 */
-        padding: 5vw;                /* 左右内边距为视口宽度的5% */
-        align-items: flex-end;              /* 卡片容器内的卡片靠右对齐 */
-    }
-   .card {
-        width: 32vw;                /* 宽度为视口宽度的32% */
-        height: 25vw;               /* 高度为宽度的78%左右（保持矩形） */
-        min-width: 110px;           /* 最小宽度，防止过小 */
-        max-width: 160px;           /* 最大宽度，防止过大 */
-        min-height: 85px;
-        max-height: 125px;
-    }
-    .card h3 {
-        font-size: clamp(0.9rem, 4vw, 1.2rem);  /* 动态字体：最小0.9rem，最大1.2rem */
-        margin-bottom: 0.5vh;                   /* 下边距为视口高度的0.5% */;
-    }
-    .card p {
-        font-size: clamp(0.65rem, 2.5vw, 0.8rem); /* 动态字体 */
-        padding: 0 8px;
-    }
-    /* 底部文字：固定在底部，不随内容滚动 */
-    .home-footer {
-        position: absolute;
-        bottom: 20px;
-        left: 0;
-        right: 0;
-        margin: 0;
-        font-size: 0.6rem;
-        text-align: center;
-    }
-    .home-footer p {
-        margin: 2px 0;
-    }
-    /* 底部链接颜色保持不变 */
-    .home-footer a {
-        color: black;
-    }
-}
-
 
 /* ========== 子页面专用 body 样式 ========== */
 body.sub-page {
@@ -552,7 +496,7 @@ footer {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(139, 0, 0, 0.5);  /* 黑色半透明，可调整 */
+    background-color: rgba(139, 69, 19, 0.5);  /* 半透明颜色，可调整 */
     border-radius: 1.2vw;
     z-index: 1;
 }
