@@ -61,16 +61,16 @@ body.sub-page main {
 
 /* 卡片容器 - 横向排列 */
 .cards-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
     align-items: center;
     gap: 5vw;
     padding: 20px;
     max-width: 90%;
     margin: 0 auto;
-    margin-top: 40vh;  /* 上边距为视口高度的%，自动适配 */
+    margin-top: 40vh !important;  /* 上边距为视口高度的%，自动适配 */
 }
 /* 单个卡片样式 */
 .card {
