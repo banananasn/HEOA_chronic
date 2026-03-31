@@ -15,8 +15,7 @@ body {
     background-repeat: no-repeat;
     
     /* 使用 flex 布局 */
-    display: flex;
-    align-items: center;
+    display: flex;;
     justify-content: center;
 
      /* 添加动画：背景图从上到下飞入 */
