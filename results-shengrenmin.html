@@ -129,6 +129,7 @@
             border-left: 0.3vw solid #8B0000;
             padding-left: 1vw;
             margin: 2vh 0 2vh 0;
+            border-bottom-color: #8B0000 !important;
         }
 
         /* 返回按钮样式 */
@@ -390,13 +391,13 @@
             <button class="add-result-btn" onclick="openAddResultModal()">✚ 添加新成果</button>
         </div>
         
-        <!-- 板块一：在研成果 -->
+        <!-- 板块一：在研进展 -->
         <div class="research-section">
-            <h3 class="section-title">在研成果</h3>
+            <h3 class="section-title">在研进展</h3>
             <div class="results-cards-container" id="ongoingResults">
                 <div class="empty-state">
                     <div class="empty-state-icon">📋</div>
-                    <div class="empty-state-text">暂无在研成果，点击上方按钮添加</div>
+                    <div class="empty-state-text">暂无在研进展，点击上方按钮添加</div>
                 </div>
             </div>
         </div>
@@ -434,7 +435,7 @@
                 <div class="form-group">
                     <label>成果类型 *</label>
                     <select id="resultType" required>
-                        <option value="ongoing">在研成果</option>
+                        <option value="ongoing">在研进展</option>
                         <option value="output">产出成果</option>
                     </select>
                 </div>
@@ -612,9 +613,9 @@
             const ongoingContainer = document.getElementById('ongoingResults');
             const outputContainer = document.getElementById('outputResults');
             
-            // 在研成果
+            // 在研进展
             if (ongoingResults.length === 0) {
-                ongoingContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📋</div><div class="empty-state-text">暂无在研成果，点击上方按钮添加</div></div>`;
+                ongoingContainer.innerHTML = `<div class="empty-state"><div class="empty-state-icon">📋</div><div class="empty-state-text">暂无在研进展，点击上方按钮添加</div></div>`;
             } else {
                 ongoingContainer.innerHTML = ongoingResults.map(result => {
                     const hasLink = result.link && result.link.trim() !== '';
