@@ -550,6 +550,66 @@ footer {
     color: white;
     transform: translateX(0.3vw);
 }
+/* ========== 弹窗（Tooltip）样式 ========== */
+.tooltip-item {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+.tooltip-trigger {
+    display: block;
+    padding: 0.6vh 0.5vw;
+    background: #f8f9fa;
+    border-radius: 0.8vw;
+    font-size: clamp(0.7rem, 0.85vw, 0.85rem);
+    color: #333;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.tooltip-trigger:hover {
+    background: #8B0000;
+    color: white;
+}
+/* 弹窗内容 - 默认隐藏 */
+.tooltip-content {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 1rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    min-width: 220px;
+    max-width: 280px;
+    white-space: normal;
+    z-index: 100;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    text-align: left;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+}
+/* 弹窗小三角 */
+.tooltip-content::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent;
+}
+/* 鼠标悬浮时显示弹窗 */
+.tooltip-item:hover .tooltip-content {
+    visibility: visible;
+    opacity: 1;
+}
 
 
 /* ========== 研究成果卡片样式 ========== */
