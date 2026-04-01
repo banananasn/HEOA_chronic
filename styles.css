@@ -462,7 +462,7 @@ footer {
 }
 /* 每个单位独立包装 */
 .partner-card-wrapper {
-    width: 16vw;
+    width: 15vw;
     min-width: 220px;
     max-width: 280px;
     display: flex;
