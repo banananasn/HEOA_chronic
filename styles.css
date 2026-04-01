@@ -659,82 +659,55 @@ footer {
 }
 
 /* ========== 项目人员页面：左侧图片 + 右侧成员列表 ========== */
-
 .members-container {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 2rem;
-    margin-top: 2vh;
-    align-items: center;        /* 改为 center，让图片和文字垂直居中 */
+    gap: 3vw;                   /* 间距改为视口宽度的3% */
+    margin-top: 3vh;            /* 上边距改为视口高度的3% */
+    align-items: center;
 }
-
 /* 左侧图片区域 */
 .members-image {
-    flex: 0 0 40%;
-    min-width: 280px;
-    max-width: 450px;
+    flex: 0 0 38%;              /* 固定占38%宽度 */
+    min-width: 260px;
+    max-width: 500px;
     display: flex;
-    justify-content: center;    /* 图片水平居中 */
-    align-items: center;        /* 图片垂直居中 */
+    justify-content: center;
+    align-items: center;
 }
-
 .members-image img {
     width: 100%;
     height: auto;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 1.2vw;       /* 圆角随屏幕宽度变化 */
+    box-shadow: 0 0.5vh 1.5vh rgba(0, 0, 0, 0.1);
 }
-
 /* 右侧成员列表区域 */
 .members-list {
-    flex: 1;
-    min-width: 260px;
+    flex: 0.8;
+    min-width: 280px;
 }
-
 /* 单个成员项 */
 .member-item {
-    padding: 0.5rem 0.8rem;
-    margin-bottom: 0.5rem;
+    padding: 0.8vh 1.2vw;       /* 内边距：上下用vh，左右用vw */
+    margin-bottom: 1vh;         /* 间距用视口高度 */
     background: #f8f9fa;
-    border-radius: 10px;
+    border-radius: 1vw;         /* 圆角随屏幕宽度 */
     transition: all 0.2s ease;
-    line-height: 1.4;
-    font-size: 0.9rem;
+    line-height: 1.5;
+    font-size: clamp(0.85rem, 1.2vw, 1rem);  /* 动态字体：最小0.85rem，最大1rem */
     color: #333;
-    border-left: 3px solid #8B0000;
+    border-left: 0.25vw solid #8B0000;       /* 左边框随屏幕宽度 */
 }
-
 .member-item:hover {
-    transform: translateX(4px);
+    transform: translateX(0.5vw);            /* 悬浮移动距离随屏幕宽度 */
     background: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0.8vh 1.8vh rgba(0, 0, 0, 0.08);
 }
-
 .member-item strong {
     color: #8B0000;
-    font-size: 0.95rem;
+    font-size: clamp(0.9rem, 1.3vw, 1.05rem);  /* 动态字体 */
     display: inline-block;
-    min-width: 70px;
+    min-width: 5.5vw;           /* 最小宽度用视口宽度比例 */
     font-weight: 600;
-}
-
-/* 手机端适配 */
-@media (max-width: 768px) {
-    .members-container {
-        flex-direction: column;
-        gap: 1.5rem;
-        align-items: center;    /* 手机端居中 */
-    }
-    
-    .members-image {
-        flex: 0 0 auto;
-        width: 80%;
-        margin: 0 auto;
-    }
-    
-    .member-item {
-        font-size: 0.85rem;
-        padding: 0.5rem 0.8rem;
-    }
 }
