@@ -36,12 +36,12 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
         }
 
-        /* 删除按钮 - 只有管理员或上传者可见 */
+        /* 删除按钮 - 始终可见 */
         .delete-btn {
             position: absolute;
             top: 8px;
             right: 8px;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(139, 0, 0, 0.9);
             color: white;
             border: none;
             border-radius: 50%;
@@ -52,17 +52,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0;
-            transition: opacity 0.2s ease;
             z-index: 10;
-        }
-
-        .result-card:hover .delete-btn {
-            opacity: 1;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .delete-btn:hover {
-            background: #8B0000;
+            background: #ff0000;
+            transform: scale(1.05);
         }
 
         .card-image {
@@ -226,6 +223,11 @@
             border: none;
             border-radius: 0.5rem;
             cursor: pointer;
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-login-content button.cancel-btn {
+            background: #6c757d;
         }
 
         /* 模态框样式 */
@@ -332,6 +334,25 @@
             background: #a00000;
         }
 
+        /* 管理员模式指示器 */
+        .admin-badge {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #8B0000;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .admin-badge:hover {
+            background: #a00000;
+        }
+
         /* 响应式调整 */
         @media (max-width: 768px) {
             .results-cards-container {
@@ -407,6 +428,11 @@
         <p>&copy;国家科技重大专项“重大慢病防治技术推广机制研究及应用示范”课题“整合式智慧慢病管理模式研究”（编号：2024ZD0523902）@四川大学华西公共卫生学院</p>
     </footer>
 
+    <!-- 管理员模式指示器 -->
+    <div class="admin-badge" id="adminBadge" onclick="openAdminLoginModal()">
+        🔒 管理员模式
+    </div>
+
     <!-- 添加成果模态框 -->
     <div id="resultModal" class="modal">
         <div class="modal-content">
@@ -450,7 +476,7 @@
             <h3>管理员验证</h3>
             <input type="password" id="adminPassword" placeholder="请输入管理员密码" autocomplete="off">
             <button onclick="verifyAdmin()">确认</button>
-            <button onclick="closeAdminLoginModal()" style="background: #6c757d; margin-top: 0.5rem;">取消</button>
+            <button onclick="closeAdminLoginModal()" class="cancel-btn">取消</button>
         </div>
     </div>
 
@@ -515,13 +541,25 @@
             }
         }
 
+        // 更新管理员指示器显示
+        function updateAdminBadge() {
+            const badge = document.getElementById('adminBadge');
+            if (isAdminMode) {
+                badge.innerHTML = '👑 管理员模式 (已启用)';
+                badge.style.background = '#28a745';
+            } else {
+                badge.innerHTML = '🔒 管理员模式';
+                badge.style.background = '#8B0000';
+            }
+        }
+
         // 检查是否有权限删除
         function canDelete(result) {
             // 管理员模式始终可以删除
             if (isAdminMode) return true;
             
-            // 检查当前用户是否是上传者（使用sessionStorage存储上传者标识）
-            const currentUploader = sessionStorage.getItem('currentUploader');
+            // 检查当前用户是否是上传者
+            const currentUploader = sessionStorage.getItem('uploaderId');
             return result.uploaderId === currentUploader;
         }
 
@@ -538,14 +576,10 @@
             // 检查权限
             if (!canDelete(result)) {
                 alert('您没有权限删除此成果！\n只有管理员和上传者可以删除。');
-                // 如果是非管理员，尝试弹出登录框
-                if (!isAdminMode) {
-                    openAdminLoginModal();
-                }
                 return;
             }
             
-            if (confirm('确定要删除这个成果吗？')) {
+            if (confirm(`确定要删除成果「${result.title}」吗？`)) {
                 if (type === 'ongoing') {
                     ongoingResults = ongoingResults.filter(r => r.id !== id);
                 } else {
@@ -575,11 +609,21 @@
                 isAdminMode = true;
                 sessionStorage.setItem('isAdminMode', 'true');
                 closeAdminLoginModal();
-                alert('管理员模式已启用，现在可以删除任何成果！');
-                renderResults(); // 重新渲染以显示删除按钮
+                updateAdminBadge();
+                renderResults();
+                alert('管理员模式已启用！现在您可以删除任何成果。');
             } else {
                 alert('密码错误！');
             }
+        }
+
+        // 退出管理员模式
+        function logoutAdmin() {
+            isAdminMode = false;
+            sessionStorage.removeItem('isAdminMode');
+            updateAdminBadge();
+            renderResults();
+            alert('已退出管理员模式');
         }
 
         // 检查是否已登录管理员模式
@@ -588,6 +632,7 @@
             if (savedAdminMode === 'true') {
                 isAdminMode = true;
             }
+            updateAdminBadge();
         }
 
         // 生成唯一的上传者ID
@@ -604,7 +649,6 @@
         function renderResults() {
             const ongoingContainer = document.getElementById('ongoingResults');
             const outputContainer = document.getElementById('outputResults');
-            const currentUploader = sessionStorage.getItem('uploaderId');
             
             // 渲染在研成果
             if (ongoingResults.length === 0) {
@@ -623,7 +667,7 @@
                     
                     return `
                         <${cardTag} class="result-card" data-id="${result.id}" ${hrefAttr}>
-                            ${showDelete ? `<button class="delete-btn" onclick="deleteResult('ongoing', '${result.id}', event)">×</button>` : ''}
+                            ${showDelete ? `<button class="delete-btn" onclick="deleteResult('ongoing', '${result.id}', event)" title="删除此成果">×</button>` : ''}
                             <div class="card-image">
                                 ${result.image ? `<img src="${result.image}" alt="${result.title}">` : `<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #999;">暂无图片</div>`}
                             </div>
@@ -652,7 +696,7 @@
                     
                     return `
                         <${cardTag} class="result-card" data-id="${result.id}" ${hrefAttr}>
-                            ${showDelete ? `<button class="delete-btn" onclick="deleteResult('output', '${result.id}', event)">×</button>` : ''}
+                            ${showDelete ? `<button class="delete-btn" onclick="deleteResult('output', '${result.id}', event)" title="删除此成果">×</button>` : ''}
                             <div class="card-image">
                                 ${result.image ? `<img src="${result.image}" alt="${result.title}">` : `<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #999;">暂无图片</div>`}
                             </div>
@@ -687,7 +731,7 @@
                 title: title,
                 image: imageData || null,
                 link: link || null,
-                uploaderId: uploaderId,  // 记录上传者ID
+                uploaderId: uploaderId,
                 createTime: new Date().toISOString()
             };
             
@@ -699,7 +743,7 @@
             
             saveDataToStorage();
             renderResults();
-            alert(`成果「${title}」已成功添加至${type === 'ongoing' ? '在研成果' : '产出成果'}板块！\n您只能删除自己上传的成果。`);
+            alert(`成果「${title}」已成功添加！\n\n删除说明：\n• 您可以直接点击卡片右上角的红色 × 按钮删除自己上传的成果\n• 管理员点击右下角「管理员模式」可获取删除所有成果的权限`);
         }
 
         // 表单提交处理
@@ -743,6 +787,16 @@
         loadDataFromStorage();
         checkAdminMode();
         renderResults();
+        
+        // 右键点击管理员指示器可以退出管理员模式（方便测试）
+        document.getElementById('adminBadge').addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            if (isAdminMode) {
+                if (confirm('确定要退出管理员模式吗？')) {
+                    logoutAdmin();
+                }
+            }
+        });
     </script>
 </body>
 </html>
