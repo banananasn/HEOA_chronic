@@ -658,6 +658,7 @@ footer {
     background: white;
 }
 
+
 /* ========== 项目人员页面：左侧图片 + 右侧成员列表 ========== */
 .members-container {
     display: flex;
@@ -684,8 +685,8 @@ footer {
 }
 /* 右侧成员列表区域 */
 .members-list {
-    flex: 2;
-    min-width: 400px;
+    flex: 3;
+    min-width: 500px;
 }
 /* 单个成员项 */
 .member-item {
