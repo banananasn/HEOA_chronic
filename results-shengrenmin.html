@@ -563,33 +563,34 @@
             return result.uploaderId === currentUploader;
         }
 
-        // 删除单个成果
-        function deleteResult(type, id, event) {
-            event.stopPropagation();
-            
-            const result = type === 'ongoing' 
-                ? ongoingResults.find(r => r.id === id)
-                : outputResults.find(r => r.id === id);
-            
-            if (!result) return;
-            
-            // 检查权限
-            if (!canDelete(result)) {
-                alert('您没有权限删除此成果！\n只有管理员和上传者可以删除。');
-                return;
-            }
-            
-            if (confirm(`确定要删除成果「${result.title}」吗？`)) {
-                if (type === 'ongoing') {
-                    ongoingResults = ongoingResults.filter(r => r.id !== id);
-                } else {
-                    outputResults = outputResults.filter(r => r.id !== id);
+            // 删除单个成果
+            function deleteResult(type, id, event) {
+                event.stopPropagation();  // 阻止事件冒泡
+                event.preventDefault();   // 阻止默认行为（重要！）
+                
+                const result = type === 'ongoing' 
+                    ? ongoingResults.find(r => r.id === id)
+                    : outputResults.find(r => r.id === id);
+                
+                if (!result) return;
+                
+                // 检查权限
+                if (!canDelete(result)) {
+                    alert('您没有权限删除此成果！\n只有管理员和上传者可以删除。');
+                    return;
                 }
-                saveDataToStorage();
-                renderResults();
-                alert('删除成功！');
+                
+                if (confirm(`确定要删除成果「${result.title}」吗？`)) {
+                    if (type === 'ongoing') {
+                        ongoingResults = ongoingResults.filter(r => r.id !== id);
+                    } else {
+                        outputResults = outputResults.filter(r => r.id !== id);
+                    }
+                    saveDataToStorage();
+                    renderResults();
+                    alert('删除成功！');
+                }
             }
-        }
 
         // 打开管理员登录模态框
         function openAdminLoginModal() {
