@@ -403,13 +403,15 @@
         <h2>四川省医学科学院·四川省人民医院 - 项目成果</h2>
         
         <!-- 板块一：在研成果 -->
-        <div class="research-section">
-            <h3 class="section-title">在研成果</h3>
-            <div class="results-cards-container" id="ongoingResults">
-                <div class="empty-state">
-                    <div class="empty-state-icon">📋</div>
-                    <div class="empty-state-text">暂无在研成果，点击上方按钮添加</div>
-                </div>
+    <main class="sub-page-content">
+        <!-- 标题和按钮在同一行，按钮在右上角 -->
+        <div style="position: relative; text-align: center; margin-bottom: 2rem;">
+            <h2 style="margin: 0;">四川省医学科学院·四川省人民医院 - 项目成果</h2>
+            <div style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); display: flex; gap: 1rem;">
+                <button onclick="window.location.href='teams.html'" class="back-button">← 返回合作单位</button>
+                <button class="add-result-btn" onclick="openAddResultModal()">
+                    ✚ 添加新成果
+                </button>
             </div>
         </div>
 
