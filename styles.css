@@ -457,11 +457,11 @@ footer {
     flex-wrap: wrap;
     justify-content: center;
     gap: 3vw;
-    margin-top: 3vh;
+    margin-top: 5vh;
 }
 /* 每个单位独立包装 */
 .partner-card-wrapper {
-    width: 15vw;
+    width: 14vw;
     min-width: 220px;
     max-width: 280px;
     display: flex;
@@ -478,7 +478,7 @@ footer {
     box-shadow: 0 0.5vh 1.5vh rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.3);
     overflow: hidden;
-    height: 12vh;
+    height: 15vh;
     min-height: 100px;
     max-height: 130px;
     display: flex;
@@ -508,9 +508,9 @@ footer {
     position: relative;
     z-index: 2;
     color: white;
-    padding: 1.2vh 0.8vw;
+    padding: 1.4vh 1vw;
     margin: 0;
-    font-size: clamp(0.8rem, 1vw, 1.2rem);
+    font-size: clamp(1rem, 1.3vw, 1.5rem);
     font-weight: 600;
     text-align: center;
     letter-spacing: 0.5px;
@@ -525,19 +525,19 @@ footer {
 }
 /* 三行文字链接区域 */
 .partner-links {
-    margin-top: 1vh;
+    margin-top: 2vh;
     display: flex;
     flex-direction: column;
-    gap: 0.6vh;
+    gap: 1vh;
     width: 100%;
 }
 .link-item {
     display: block;
-    padding: 0.6vh 0.5vw;
+    padding: 0.8vh 0.6vw;
     background: #f8f9fa;
     border-radius: 0.8vw;
     text-decoration: none;
-    font-size: clamp(0.7rem, 0.85vw, 0.85rem);
+    font-size: clamp(0.9rem, 1vw, 1rem);
     color: #333;
     transition: all 0.2s ease;
     text-align: center;
