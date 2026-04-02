@@ -1,7 +1,7 @@
 // ========== GitHub API 配置 ==========
 const GITHUB_OWNER = 'banananasn';
 const GITHUB_REPO = 'project-results-data';
-const GITHUB_TOKEN = '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';  // 替换成生成的 token, 我已经在setting里生成了secret //
+const GITHUB_TOKEN = 'Chronic_TOKEN';  // 替换成生成的 token, 我已经在setting里生成了secret //
 
 // 通用 GitHub API 请求函数
 async function githubRequest(endpoint, method, body = null) {
