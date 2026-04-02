@@ -671,8 +671,8 @@ footer {
 }
 /* 左侧图片区域 */
 .members-image {
-    flex: 0 0 40%;              /* 固定占38%宽度 */
-    min-width: 260px;
+    flex: 0 0 35%;              /* 固定占38%宽度 */
+    min-width: 250px;
     max-width: 500px;
     display: flex;
     justify-content: center;
@@ -691,8 +691,8 @@ footer {
 }
 /* 单个成员项 */
 .member-item {
-    padding: 0.8vh 1.2vw;       /* 内边距：上下用vh，左右用vw */
-    margin-bottom: 1vh;         /* 间距用视口高度 */
+    padding: 1vh 1.2vw;       /* 内边距：上下用vh，左右用vw */
+    margin-bottom: 1.2vh;         /* 间距用视口高度 */
     background: #f8f9fa;
     border-radius: 1vw;         /* 圆角随屏幕宽度 */
     transition: all 0.2s ease;
