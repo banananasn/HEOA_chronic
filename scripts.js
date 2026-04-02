@@ -1,3 +1,104 @@
+// ========== GitHub API 配置 ==========
+const GITHUB_OWNER = 'banananasn';
+const GITHUB_REPO = 'project-results-data';
+const GITHUB_TOKEN = '你的_token';  // 替换成你生成的 token
+
+// 通用 GitHub API 请求函数
+async function githubRequest(endpoint, method, body = null) {
+    const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/${endpoint}`;
+    const headers = {
+        'Authorization': `token ${GITHUB_TOKEN}`,
+        'Accept': 'application/vnd.github.v3+json'
+    };
+    if (body) {
+        headers['Content-Type'] = 'application/json';
+    }
+    
+    const response = await fetch(url, { method, headers, body: body ? JSON.stringify(body) : null });
+    if (!response.ok) {
+        const error = await response.text();
+        throw new Error(`GitHub API 错误: ${response.status} - ${error}`);
+    }
+    return response.json();
+}
+
+// 读取所有成果（从 GitHub Issues）
+async function loadResultsFromGitHub(storageKey) {
+    try {
+        const issues = await githubRequest('issues', 'GET');
+        // 过滤出带有"成果"标签的 Issue
+        const resultIssues = issues.filter(issue => 
+            issue.labels && issue.labels.some(label => label.name === '成果')
+        );
+        
+        // 转换为成果数据格式
+        const results = [];
+        for (const issue of resultIssues) {
+            let bodyData = {};
+            try {
+                bodyData = JSON.parse(issue.body || '{}');
+            } catch(e) {
+                console.error('解析 Issue body 失败:', e);
+            }
+            
+            // 判断类型
+            let type = null;
+            if (issue.labels && issue.labels.some(l => l.name === '在研动态')) {
+                type = 'ongoing';
+            } else if (issue.labels && issue.labels.some(l => l.name === '产出成果')) {
+                type = 'output';
+            }
+     
+            results.push({
+                id: issue.id,
+                title: issue.title,
+                type: type,
+                image: bodyData.image || null,
+                link: bodyData.link || null,
+                file: bodyData.file || null,
+                fileName: bodyData.fileName || null,
+                uploaderId: issue.user?.login || 'unknown',
+                createTime: issue.created_at
+            });
+        }
+        return results;
+    } catch (error) {
+        console.error('加载成果失败:', error);
+        return [];
+    }
+}
+// 添加新成果（创建 GitHub Issue）
+async function addResultToGitHub(type, title, imageData, link, fileData, fileName) {
+    const body = JSON.stringify({
+        image: imageData || null,
+        link: link || null,
+        file: fileData || null,
+        fileName: fileName || null
+    });
+    const labels = ['成果'];
+    if (type === 'ongoing') {
+        labels.push('在研动态');
+    } else {
+        labels.push('产出成果');
+    }
+    const newIssue = await githubRequest('issues', 'POST', {
+        title: title,
+        body: body,
+        labels: labels
+    });   
+    return {
+        id: newIssue.id,
+        title: newIssue.title,
+        type: type,
+        image: imageData,
+        link: link,
+        file: fileData,
+        fileName: fileName,
+        uploaderId: newIssue.user.login,
+        createTime: newIssue.created_at
+    };
+}
+
 // ========== 会议资讯数据 ==========
 const newsCardsData = [
     { 
