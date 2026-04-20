@@ -7,32 +7,36 @@ const WORKER_URL = 'https://heoa-github.55d84xnpx5.workers.dev/';
 
 // 通用 API 请求函数（通过 Worker 代理）
 async function apiRequest(endpoint, method, body = null, requireAuth = false) {
-    // 如果没有密码，先弹窗获取
-    if (!TEAM_PASSWORD) {
-        TEAM_PASSWORD = localStorage.getItem('team_password');
+    // 只有需要认证的操作（如添加成果）才检查密码
+    if (requireAuth) {
         if (!TEAM_PASSWORD) {
-            TEAM_PASSWORD = prompt('请输入团队密码：');
-            if (TEAM_PASSWORD) {
-                localStorage.setItem('team_password', TEAM_PASSWORD);
-            } else {
-                throw new Error('需要输入密码才能操作');
+            TEAM_PASSWORD = localStorage.getItem('team_password');
+            if (!TEAM_PASSWORD) {
+                TEAM_PASSWORD = prompt('请输入团队密码：');
+                if (TEAM_PASSWORD) {
+                    localStorage.setItem('team_password', TEAM_PASSWORD);
+                } else {
+                    throw new Error('需要输入密码才能添加成果');
+                }
             }
         }
     }
-    
+    const requestBody = {
+        endpoint: endpoint,
+        method: method,
+        body: body
+    };
+    // 只有需要认证时才发送密码
+    if (requireAuth && TEAM_PASSWORD) {
+        requestBody.password = TEAM_PASSWORD;
+    }
     const response = await fetch(WORKER_URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            password: TEAM_PASSWORD,
-            endpoint: endpoint,
-            method: method,
-            body: body
-        })
+        body: JSON.stringify(requestBody)
     });
-    
     if (!response.ok) {
         const error = await response.text();
         throw new Error(`请求失败: ${response.status} - ${error}`);
